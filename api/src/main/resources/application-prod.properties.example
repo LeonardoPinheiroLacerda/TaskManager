@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/taskmanager
+spring.datasource.username=taskmanager
+spring.datasource.password=task@manager2022
+
+spring.jpa.show-sql=false
