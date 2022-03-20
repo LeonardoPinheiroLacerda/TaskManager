@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "TaskManagerDB",
+            "Group": "Servers",
+            "Host": "db.taskmanager.com",
+            "Port": 5432,
+            "MaintenanceDB": "taskmanager",
+            "Username": "taskmanager",
+            "SSLMode": "prefer"
+        }
+    }
+}
