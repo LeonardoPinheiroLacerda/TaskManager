@@ -3,7 +3,7 @@
         "1": {
             "Name": "TaskManagerDB",
             "Group": "Servers",
-            "Host": "db.taskmanager.com",
+            "Host": "pg.taskmanager.com",
             "Port": 5432,
             "MaintenanceDB": "taskmanager",
             "Username": "taskmanager",
