@@ -8,9 +8,9 @@ CREATE TABLE "Status" (
   "status" VARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TABLE "Classifyings" (
+CREATE TABLE "Classifications" (
   "id" BIGINT PRIMARY KEY,
-  "classifying" VARCHAR(50) UNIQUE NOT NULL
+  "classification" VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE "Clients" (
@@ -30,6 +30,7 @@ CREATE TABLE "Users" (
   "name" VARCHAR(50) NOT NULL,
   "last_name" VARCHAR(50),
   "email" VARCHAR(100) UNIQUE NOT NULL,
+  "telephone_number" VARCHAR(50) UNIQUE,
   "username" VARCHAR(50) UNIQUE NOT NULL,
   "password" VARCHAR(255) NOT NULL
 );
@@ -49,7 +50,7 @@ CREATE TABLE "TeamPeople" (
 CREATE TABLE "Tasks" (
   "id" BIGINT PRIMARY KEY,
   "status_id" BIGINT NOT NULL,
-  "classifying_id" BIGINT NOT NULL,
+  "classification_id" BIGINT NOT NULL,
   "priority_id" BIGINT NOT NULL,
   "project_id" BIGINT NOT NULL,
   "started_at" TIMESTAMP,
@@ -68,7 +69,7 @@ CREATE TABLE "Backlogs" (
   "user_id" BIGINT
 );
 
-CREATE TABLE "BacklogNotifies" (
+CREATE TABLE "BacklogNotifications" (
   "id" BIGINT PRIMARY KEY,
   "notified" BOOLEAN,
   "backlog_id" BIGINT,
