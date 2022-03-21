@@ -22,7 +22,7 @@ CREATE TABLE "Projects" (
   "id" BIGINT PRIMARY KEY,
   "client_id" BIGINT,
   "team_id" BIGINT,
-  "project" VARCHAR(100) UNIQUE NOT NULL
+  "project" VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE "Users" (
