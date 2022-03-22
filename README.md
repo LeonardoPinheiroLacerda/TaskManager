@@ -6,7 +6,7 @@ Conforme o projeto progride irei informar as novas features abaixo.
 
 ## Perfis do Back-end
 
-O Back-end desenvolvido em Spring Boot contém 3 perfis, sendo eles:
+O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no arquivo [aplication.properties](/api/src/main/resources/application.properties) no atributo spring.profiles.active, sendo eles:
 
 - test
     - No início de sua execução cria dados para testes unitários e de integração;
