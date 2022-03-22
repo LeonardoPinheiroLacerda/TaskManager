@@ -22,21 +22,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
-			http
+			
+            //Permite acesso ao banco de dados H2 no profile test
+            http
                 .headers()
                 .frameOptions()
                 .disable();
 
+            http.authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll();
+		}
+        if(Arrays.asList(env.getActiveProfiles()).contains("dev")) {
+			
+            //Permite o acesso do Spring remote no profile dev
+            http
+                .authorizeRequests()
+                .antMatchers("/.~~spring-boot!~/**").permitAll();
 		}
 
         http.csrf().disable();
 
-        http.authorizeRequests()
-            .antMatchers("/h2-console/**").permitAll()
+        http.authorizeRequests()           
             .anyRequest().authenticated()
-            
             .and()
-            
             .formLogin();    
 
 	}

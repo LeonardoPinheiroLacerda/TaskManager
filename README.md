@@ -4,6 +4,25 @@ Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar mi
 
 Conforme o projeto progride irei informar as novas features abaixo.
 
+## Perfis do Back-end
+
+O Back-end desenvolvido em Spring Boot contém 3 perfis, sendo eles:
+
+- test
+    - No início de sua execução cria dados para testes unitários e de integração;
+    - Instância e se conecta a um banco de dados H2.
+    - Se conecta ao container de servidor FTP responsável por armazenar os anexos.
+- dev
+    - Configurado para desenvolvimento utilizando o Spring Remote, onde um container do back-end é instânciado, e conforme os arquivos do projeto são alterados, é realizado o upload para o container assim atualizando seu comportamento;
+    - Se conecta ao banco de dados PostgreSQL instânciado pelo docker que é utilizado apenas para desenvolvimento;
+    - Executa as migrations do banco se houverem atualizações.
+    - Se conecta ao container de servidor FTP responsável por armazenar os anexos.
+- prod
+    - Se conecta ao banco de dados PostgreSQL de produção;
+    - Executa as migrations do banco se houverem atualizações.
+    - Se conecta ao servidor FTP de produção.
+
+
 ## Banco de dados
 
 O sistema utiliza o PostgreSQL como base de dados. Segue abaixo o diagrama da base de dados.

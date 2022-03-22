@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leonardo</groupId>
-	<artifactId>taskmanager</artifactId>
+	<artifactId>taskmanager_api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>taskmanager</name>
-	<description>Demo project for Spring Boot</description>
+	<name>api</name>
+	<description>API para a aplicação Task Manager</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -79,6 +79,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<excludeDevtools>false</excludeDevtools>
 				</configuration>
 			</plugin>
 		</plugins>
