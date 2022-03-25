@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.leonardo.taskmanager.model.enums.Priority;
+import com.leonardo.taskmanager.model.enums.Status;
 
 import lombok.Builder;
 import lombok.Data;
@@ -35,16 +40,14 @@ public class Task {
     @SequenceGenerator(name = "tasks_id_generator", sequenceName = "tasks_id_seq", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne
     @JoinColumn(nullable = true)
     private Classification classification;
 
-    @ManyToOne
-    @JoinColumn(nullable = true)
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
     @OneToMany(mappedBy = "task")
