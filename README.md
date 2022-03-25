@@ -15,11 +15,9 @@ O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no
 - dev
     - Configurado para desenvolvimento utilizando o Spring Remote, onde um container do back-end é instânciado, e conforme os arquivos do projeto são alterados, é realizado o upload para o container assim atualizando seu comportamento;
     - Se conecta ao banco de dados PostgreSQL instânciado pelo docker que é utilizado apenas para desenvolvimento;
-    - Executa as migrations do banco se houverem atualizações.
     - Se conecta ao container de servidor FTP responsável por armazenar os anexos.
 - prod
     - Se conecta ao banco de dados PostgreSQL de produção;
-    - Executa as migrations do banco se houverem atualizações.
     - Se conecta ao servidor FTP de produção.
 
 ## Banco de dados

@@ -1,4 +1,4 @@
-package com.leonardo.taskmanager.security;
+package com.leonardo.taskmanager.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

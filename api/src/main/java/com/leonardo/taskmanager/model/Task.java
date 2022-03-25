@@ -60,9 +60,6 @@ public class Task {
     @Column(nullable = true)
     private LocalTime expectedDuration;
 
-    @Column(nullable = true)
-    private LocalTime currentDuration;
-
     @Column(nullable = false)
     private LocalDateTime startedAt;
 
