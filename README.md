@@ -1,8 +1,8 @@
 # Task Manager
 
-Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar minhas habilidades com Spring boot e Angular.
+Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar minhas habilidades e adquirir mais experiência com Spring boot, Angular e Docker.
 
-Conforme o projeto progride irei informar as novas features abaixo.
+Conforme o projeto progride irei listar as novas features abaixo.
 
 ## Perfis do Back-end
 
@@ -21,7 +21,6 @@ O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no
     - Se conecta ao banco de dados PostgreSQL de produção;
     - Executa as migrations do banco se houverem atualizações.
     - Se conecta ao servidor FTP de produção.
-
 
 ## Banco de dados
 
