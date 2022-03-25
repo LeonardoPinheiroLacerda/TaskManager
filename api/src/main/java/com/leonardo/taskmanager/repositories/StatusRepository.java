@@ -1,0 +1,9 @@
+package com.leonardo.taskmanager.repositories;
+
+import com.leonardo.taskmanager.model.Status;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StatusRepository extends JpaRepository<Status, Integer>{
+    
+}
