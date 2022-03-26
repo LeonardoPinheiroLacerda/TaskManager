@@ -14,7 +14,6 @@ public class ClassificationService {
     private final SafeRepositoryOperationsService<Classification, Integer> safeOpsService;
 
 
-    //Criar uma operação segura para inserir dados no banco
     public ClassificationService(
         ClassificationRepository classificationRepository, 
         SafeRepositoryOperationsService<Classification, Integer> safeOpsService

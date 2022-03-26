@@ -4,6 +4,14 @@ Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar mi
 
 Conforme o projeto progride irei listar as novas features abaixo.
 
+## Como executar a aplicação?
+
+Para executar a aplicação é muito simples, basta ter o Docker instalado e configurado em sua máquina, e executar o arquivo build.sh, como segue o exemplo?
+
+~~~console
+./build.sh
+~~~
+
 ## Perfis do Back-end
 
 O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no arquivo [aplication.properties](/api/src/main/resources/application.properties) no atributo spring.profiles.active, sendo eles:
