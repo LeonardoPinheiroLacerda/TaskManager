@@ -28,10 +28,10 @@ public class SpringFoxConfig {
             .build()
             .apiInfo(apiDetails())
             .useDefaultResponseMessages(false)
-            .globalResponses(HttpMethod.GET, Arrays.asList(success(), unauthorized(), forbidden(), notFound()))
-            .globalResponses(HttpMethod.POST, Arrays.asList(created(), unauthorized(), forbidden()))
-            .globalResponses(HttpMethod.PUT, Arrays.asList(success(), unauthorized(), forbidden(), notFound()))
-            .globalResponses(HttpMethod.DELETE, Arrays.asList(noContent(), unauthorized(), forbidden(), notFound()));
+            .globalResponses(HttpMethod.GET, Arrays.asList(success(), badRequest(), unauthorized(), forbidden(), notFound()))
+            .globalResponses(HttpMethod.POST, Arrays.asList(created(), badRequest(), unauthorized(), forbidden()))
+            .globalResponses(HttpMethod.PUT, Arrays.asList(success(), badRequest(), unauthorized(), forbidden(), notFound()))
+            .globalResponses(HttpMethod.DELETE, Arrays.asList(noContent(), badRequest(), unauthorized(), forbidden(), notFound()));
     }
 
     private ApiInfo apiDetails(){
@@ -64,6 +64,13 @@ public class SpringFoxConfig {
         return new ResponseBuilder()
             .code("204")
             .description("No Content")
+            .build();
+    }
+
+    public Response badRequest(){
+        return new ResponseBuilder()
+            .code("400")
+            .description("Bad Request")
             .build();
     }
 

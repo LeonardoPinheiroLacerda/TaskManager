@@ -26,7 +26,7 @@ public class ClassificationService {
     public ClassificationDTO save(ClassificationDTO dto){  
         Classification obj = new Classification(dto.getClassification());
         
-        obj = repository.save(obj);
+        obj = safeOpsService.safeSave(repository, obj);
 
         ClassificationDTO savedObj = new ClassificationDTO(obj.getId(), obj.getClassification());
 
@@ -38,7 +38,7 @@ public class ClassificationService {
 
         obj.setClassification(dto.getClassification());
 
-        obj = repository.save(obj);
+        obj = safeOpsService.safeSave(repository, obj);
 
         ClassificationDTO savedObj = new ClassificationDTO(obj.getId(), obj.getClassification());
 

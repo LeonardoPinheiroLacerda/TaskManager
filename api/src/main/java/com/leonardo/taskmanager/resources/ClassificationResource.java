@@ -30,7 +30,7 @@ public class ClassificationResource {
         value = "Insere uma nova classificação no sistema.",
         notes = "Apenas usuários com permissão de ADMIN tem acesso à este endpoint.")
     @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(value = "/new")
+    @PostMapping
     public ResponseEntity<ClassificationDTO> insertClassification(@ApiParam(value = "Classificação que será persistida no banco. O Id é gerado automaticamente.", required = true) @RequestBody ClassificationDTO dto) {
         service.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
