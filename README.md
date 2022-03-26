@@ -20,6 +20,12 @@ O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no
     - Se conecta ao banco de dados PostgreSQL de produção;
     - Se conecta ao servidor FTP de produção.
 
+## Documentação do Back-end
+
+O Back-end está sendo documentado utilizando o Swagger que por sua vez segue as especificações do OpenAPI, dessa forma, a documentação é padronizada de logo é familiar a qualquer desenvolvedor que já utilizou uma documentação que segue as mesmas especificações assim facilitando a curva de aprendizado.
+
+Além disso, por seguir as especificações do OpenAPI é de extrema facilidade exportar a documentação para ferramentas como o Postman ou Insomnia.
+
 ## Banco de dados
 
 O sistema utiliza o PostgreSQL como base de dados. Segue abaixo o diagrama da base de dados.
@@ -27,3 +33,7 @@ O sistema utiliza o PostgreSQL como base de dados. Segue abaixo o diagrama da ba
 ![diagram](/api/docs/DatabaseDiagram.png)
 
 O diagrama pode ser vizualizado com mais detalhes [aqui](https://dbdiagram.io/d/62362e4ebed6183873c38a3f).
+
+
+
+
