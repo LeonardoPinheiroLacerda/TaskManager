@@ -21,13 +21,13 @@ import javax.persistence.Table;
 import com.leonardo.taskmanager.model.enums.Priority;
 import com.leonardo.taskmanager.model.enums.Status;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Builder
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString()
 

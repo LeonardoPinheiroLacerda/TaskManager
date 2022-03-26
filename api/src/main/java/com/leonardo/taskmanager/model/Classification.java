@@ -11,13 +11,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Builder
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"tasks"})
 
@@ -35,5 +35,9 @@ public class Classification {
 
     @OneToMany(mappedBy = "classification")
     private Set<Task> tasks;
+
+    public Classification(String classification){
+        this.classification = classification;
+    }
 
 }
