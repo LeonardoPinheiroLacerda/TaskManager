@@ -71,6 +71,7 @@ public class ClassificationResource {
     @ApiOperation(
         value = "Atualiza um registro de classificação"
     )
+    @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(value = "/{id}")
     public ResponseEntity<ClassificationDTO> update(
         @ApiParam(value = "Dados que serão atualizados no novo registro.") @RequestBody ClassificationDTO dto, 
