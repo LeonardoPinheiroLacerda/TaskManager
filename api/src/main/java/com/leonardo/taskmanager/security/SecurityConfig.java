@@ -2,11 +2,25 @@ package com.leonardo.taskmanager.security;
 
 import java.util.Arrays;
 
+import javax.crypto.SecretKey;
+
+import com.leonardo.taskmanager.repositories.UserRepository;
+import com.leonardo.taskmanager.security.configs.JwtConfig;
+import com.leonardo.taskmanager.security.jwt.JwtUtil;
+import com.leonardo.taskmanager.security.jwt.filters.AppUsernamePasswordAuthenticationFilter;
+import com.leonardo.taskmanager.security.jwt.filters.TokenVerifierFilter;
+import com.leonardo.taskmanager.security.users.AppUserDetailsService;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 
 @Configuration
 @EnableWebSecurity
@@ -14,9 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
     private final Environment env;
 
-    public SecurityConfig(Environment env){
-        this.env = env;
-    }
+    private final JwtConfig jwtConfig;
+    private final JwtUtil jwtUtil;
+    private final SecretKey secretKey;
+    private final UserRepository userRepository;
 
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -40,13 +55,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/.~~spring-boot!~/**").permitAll();
 		}
 
-        http.csrf().disable();
+        http.csrf().disable()
+        
+        .addFilter(new AppUsernamePasswordAuthenticationFilter(authenticationManager(), jwtConfig, jwtUtil, secretKey))
+        .addFilterAfter(new TokenVerifierFilter(jwtConfig, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()           
-            .anyRequest().permitAll()
-            .and()
-            .formLogin();    
+            .anyRequest().permitAll();
 
 	}
+
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return new AppUserDetailsService(userRepository);
+    }
 
 }

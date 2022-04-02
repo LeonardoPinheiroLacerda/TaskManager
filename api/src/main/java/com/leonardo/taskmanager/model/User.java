@@ -2,8 +2,13 @@ package com.leonardo.taskmanager.model;
 
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.leonardo.taskmanager.model.enums.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -75,5 +82,10 @@ public class User {
 
     @OneToMany(mappedBy = "notifiedUser")
     private Set<BacklogNotification> notifications;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Roles")
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 }
