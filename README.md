@@ -34,6 +34,24 @@ O Back-end está sendo documentado utilizando o Swagger que por sua vez segue as
 
 Além disso, por seguir as especificações do OpenAPI é de extrema facilidade exportar a documentação para ferramentas como o Postman ou Insomnia.
 
+## Segurança
+
+A segurança sistema está a cargo do spring security, que é um framework poderoso com muitas opções de customização de autenticação e controle de acesso, como descrito em sua documentação.
+
+A Autenticação é feita por meio de tokens JWT que podem ser recuperados pelo usuário por meio do endpoint ``/api/v1/auth/login``, onde é necessário enviar seu usuário e senha no body da requisição da seguinte maneira:
+
+~~~json
+{
+    "username": "NOME DE USUÁRIO",
+    "password": "SENHA"
+}
+~~~
+
+Se a requisição for bem sucedida retornará um código 200 e o token de acesso no header authorization.
+
+Para executar os requests que necessitam de autenticação, esse token deve ser enviado no header com o nome **Authorization**.
+
+
 ## Banco de dados
 
 O sistema utiliza o PostgreSQL como base de dados. Segue abaixo o diagrama da base de dados.
