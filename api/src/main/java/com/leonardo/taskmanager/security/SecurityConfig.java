@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKey;
 
-import com.leonardo.taskmanager.model.enums.Authority;
-import com.leonardo.taskmanager.model.enums.Role;
 import com.leonardo.taskmanager.repositories.UserRepository;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
 import com.leonardo.taskmanager.security.jwt.JwtUtil;
