@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         http.csrf().disable()
         
-        .addFilter(new AppUsernamePasswordAuthenticationFilter(authenticationManager(), jwtConfig, jwtUtil, secretKey))
+        .addFilter(passwordUsernameAuthenticationFilter())
         .addFilterAfter(new TokenVerifierFilter(jwtConfig, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class)
 
 
@@ -85,6 +85,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected UserDetailsService userDetailsService() {
         return new AppUserDetailsService(userRepository);
+    }
+
+    //Filtro de autenticação com url padrão modificada
+    public AppUsernamePasswordAuthenticationFilter passwordUsernameAuthenticationFilter() throws Exception{
+        AppUsernamePasswordAuthenticationFilter filter = new AppUsernamePasswordAuthenticationFilter(authenticationManager(), jwtConfig, jwtUtil, secretKey);
+        filter.setFilterProcessesUrl("/api/v1/auth/login");
+        return filter;
     }
 
 }
