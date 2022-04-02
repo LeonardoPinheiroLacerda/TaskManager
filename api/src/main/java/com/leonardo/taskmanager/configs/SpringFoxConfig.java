@@ -2,6 +2,7 @@ package com.leonardo.taskmanager.configs;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +12,13 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Response;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
@@ -26,7 +31,11 @@ public class SpringFoxConfig {
             .apis(RequestHandlerSelectors.basePackage("com.leonardo.taskmanager"))
             .paths(PathSelectors.ant("/api/v1/**"))
             .build()
+
             .apiInfo(apiDetails())
+            .securityContexts(Arrays.asList(securityContext()))
+            .securitySchemes(Arrays.asList(apiKey()))
+
             .useDefaultResponseMessages(false)
             .globalResponses(HttpMethod.GET, Arrays.asList(success(), badRequest(), unauthorized(), forbidden(), notFound()))
             .globalResponses(HttpMethod.POST, Arrays.asList(created(), badRequest(), unauthorized(), forbidden()))
@@ -34,6 +43,24 @@ public class SpringFoxConfig {
             .globalResponses(HttpMethod.DELETE, Arrays.asList(noContent(), badRequest(), unauthorized(), forbidden(), notFound()));
     }
 
+    
+    //Configuração do botão authorize do swagger
+    private ApiKey apiKey(){
+        return new ApiKey("JWT", "Authorization", "header");
+    }
+
+    private SecurityContext securityContext() { 
+        return SecurityContext.builder().securityReferences(defaultAuth()).build(); 
+    } 
+    
+    private List<SecurityReference> defaultAuth() { 
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything"); 
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1]; 
+        authorizationScopes[0] = authorizationScope; 
+        return Arrays.asList(new SecurityReference("JWT", authorizationScopes)); 
+    }
+
+    //Detalhes da api
     private ApiInfo apiDetails(){
         return new ApiInfo(
             /*Title*/               "Task Manager", 
@@ -46,6 +73,7 @@ public class SpringFoxConfig {
             /*VendorExtensions*/    Collections.emptyList());
     }
 
+    //Respostas Padrões
     public Response success(){
         return new ResponseBuilder()
             .code("200")
