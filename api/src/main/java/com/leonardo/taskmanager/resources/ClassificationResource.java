@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -33,6 +34,7 @@ public class ClassificationResource {
     @ApiOperation(
         value = "Insere uma nova classificação no sistema.",
         notes = "Apenas usuários com permissão de ADMIN tem acesso à este endpoint.")
+    @ApiImplicitParam(name = "Authorization", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Token de acesso")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
     public ResponseEntity<Void> insertClassification(
@@ -45,6 +47,7 @@ public class ClassificationResource {
     @ApiOperation(
         value = "Retorna a classificação e id informado."
     )
+    @ApiImplicitParam(name = "Authorization", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Token de acesso")
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClassificationDTO> findById(
@@ -58,6 +61,7 @@ public class ClassificationResource {
     @ApiOperation(
         value = "Remove o registro de uma classificação.", 
         notes = "Apenas usuários com permissão de ADMIN tem acesso à este endpoint")
+    @ApiImplicitParam(name = "Authorization", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Token de acesso")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(
@@ -71,6 +75,7 @@ public class ClassificationResource {
     @ApiOperation(
         value = "Atualiza um registro de classificação"
     )
+    @ApiImplicitParam(name = "Authorization", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Token de acesso")
     @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(value = "/{id}")
     public ResponseEntity<ClassificationDTO> update(

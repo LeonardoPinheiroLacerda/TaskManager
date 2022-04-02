@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKey;
 
+import com.leonardo.taskmanager.model.enums.Authority;
+import com.leonardo.taskmanager.model.enums.Role;
 import com.leonardo.taskmanager.repositories.UserRepository;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
 import com.leonardo.taskmanager.security.jwt.JwtUtil;
@@ -33,6 +35,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private final SecretKey secretKey;
     private final UserRepository userRepository;
 
+    private static final String[] SWAGGER_AUTH_WHITELIST = {
+        // -- Swagger UI v2
+        "/v2/api-docs",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui.html",
+        "/webjars/**",
+        // -- Swagger UI v3 (OpenAPI)
+        "/v3/api-docs/**",
+        "/swagger-ui/**"
+    };
+
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -58,10 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
         
         .addFilter(new AppUsernamePasswordAuthenticationFilter(authenticationManager(), jwtConfig, jwtUtil, secretKey))
-        .addFilterAfter(new TokenVerifierFilter(jwtConfig, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class);
+        .addFilterAfter(new TokenVerifierFilter(jwtConfig, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class)
 
-        http.authorizeRequests()           
-            .anyRequest().permitAll();
+
+        .authorizeRequests()
+        
+        .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
+        .anyRequest().authenticated();
 
 	}
 
