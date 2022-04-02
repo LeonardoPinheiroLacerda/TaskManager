@@ -11,12 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"tasks"})
@@ -31,13 +36,10 @@ public class Classification {
     private Integer id;
 
     @Column(unique = true, nullable = false, length = 50)
+    @NonNull
     private String classification;
 
     @OneToMany(mappedBy = "classification")
     private Set<Task> tasks;
-
-    public Classification(String classification){
-        this.classification = classification;
-    }
 
 }

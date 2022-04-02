@@ -12,13 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"task", "user"})
@@ -33,18 +38,23 @@ public class DetailedHour {
     private Integer id;
 
     @Column(nullable = false, length = 100)
+    @NonNull
     private String description;
 
     @Column(nullable = false)
+    @NonNull
     private LocalTime time;
 
     @Column(nullable = false)
+    @NonNull
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @NonNull
     private Task task;
 
     @ManyToOne
+    @NonNull
     private User user;
 
 }

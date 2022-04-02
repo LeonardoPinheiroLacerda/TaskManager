@@ -10,12 +10,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"backlog", "notifiedUser"})
@@ -30,14 +35,16 @@ public class BacklogNotification {
     private Integer id;
 
     @Column(nullable = false)
-    private Boolean notified;
+    private Boolean notified = false;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NonNull
     private Backlog backlog;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "notified_user")
+    @NonNull
     private User notifiedUser;
 
 

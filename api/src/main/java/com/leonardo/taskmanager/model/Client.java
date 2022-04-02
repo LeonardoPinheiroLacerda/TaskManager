@@ -11,12 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"projects"})
@@ -31,6 +36,7 @@ public class Client {
     private Integer id;
 
     @Column(unique = true, nullable = false, length = 50)
+    @NonNull
     private String client;
 
     @OneToMany(mappedBy = "client")

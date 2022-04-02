@@ -12,12 +12,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"task"})
@@ -34,18 +39,23 @@ public class Attachment {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NonNull
     private Task task;
 
     @Column(nullable = false, length = 100)
+    @NonNull
     private String name;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String size;
 
     @Column(nullable = false, length = 255)
+    @NonNull
     private String path;
 
     @Column(nullable = false)
+    @NonNull
     private LocalDateTime createdAt;
 
 }

@@ -14,12 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"task", "user"})
@@ -35,15 +40,19 @@ public class Backlog {
 
     @Column(nullable = false)
     @Lob
+    @NonNull
     private String note;
 
     @Column(nullable = false)
+    @NonNull
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @NonNull
     private Task task;
 
     @ManyToOne
+    @NonNull
     private User user;
 
     @OneToMany(mappedBy = "backlog")

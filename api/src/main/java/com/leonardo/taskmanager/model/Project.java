@@ -12,12 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"tasks", "team", "client"})
@@ -32,12 +37,15 @@ public class Project {
     private Integer id;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String name;
 
     @ManyToOne
+    @NonNull
     private Client client;
 
     @ManyToOne
+    @NonNull
     private Team team;
 
     @OneToMany(mappedBy = "project")

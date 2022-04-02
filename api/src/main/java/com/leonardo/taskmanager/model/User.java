@@ -12,12 +12,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(exclude = {"leaderOf", "teams", "detailedHours", "backlogs", "notifications"})
@@ -32,21 +38,27 @@ public class User {
     private Integer id;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String name;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String lastName;
 
     @Column(nullable = false, length = 100, unique = true)
+    @NonNull
     private String email;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String telephoneNumber;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String username;
 
     @Column(nullable = false, length = 255)
+    @NonNull
     private String password;
 
     @OneToMany(mappedBy = "leader")

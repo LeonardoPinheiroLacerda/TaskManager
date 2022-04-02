@@ -21,12 +21,17 @@ import javax.persistence.Table;
 import com.leonardo.taskmanager.model.enums.Priority;
 import com.leonardo.taskmanager.model.enums.Status;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString()
@@ -41,13 +46,16 @@ public class Task {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private Status status;
 
     @ManyToOne
     @JoinColumn(nullable = true)
+    @NonNull
     private Classification classification;
 
     @Enumerated(EnumType.STRING)
+    @NonNull
     private Priority priority;
 
     @OneToMany(mappedBy = "task")
@@ -55,25 +63,32 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NonNull
     private Project project;
 
     @Column(nullable = true)
+    @NonNull
     private LocalTime expectedDuration;
 
     @Column(nullable = false)
+    @NonNull
     private LocalDateTime startedAt;
 
     @Column(nullable = true)
+    @NonNull
     private LocalDateTime concludedAt;
 
     @Column(nullable = false, length = 100)
+    @NonNull
     private String title;
 
     @Lob
     @Column(nullable = false)
+    @NonNull
     private String description;
 
     @Column(nullable = false, length = 50)
+    @NonNull
     private String requester;
 
     @OneToMany(mappedBy = "task")
