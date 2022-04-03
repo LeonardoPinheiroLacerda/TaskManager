@@ -72,8 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
         
         .addFilter(passwordUsernameAuthenticationFilter())
-        .addFilterAfter(new TokenVerifierFilter(jwtConfig, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class)
-
+        .addFilterAfter(new TokenVerifierFilter(jwtConfig, jwtUtil, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class)
 
         .authorizeRequests()
         

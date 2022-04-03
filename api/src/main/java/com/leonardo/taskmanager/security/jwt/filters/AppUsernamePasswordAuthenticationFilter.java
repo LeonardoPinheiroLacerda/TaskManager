@@ -80,8 +80,7 @@ public class AppUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         HttpServletResponse response,
         AuthenticationException failed) throws IOException, ServletException {
 
-        //Altera o status da resposta para 401
-        response.setStatus(401);
+        jwtUtil.sendErrorMessage(response, request, failed);
     }
 
 }

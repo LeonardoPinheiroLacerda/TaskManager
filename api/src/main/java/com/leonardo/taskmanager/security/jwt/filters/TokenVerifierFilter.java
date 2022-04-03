@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.leonardo.taskmanager.model.User;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
+import com.leonardo.taskmanager.security.jwt.JwtUtil;
 import com.leonardo.taskmanager.security.users.AppUserDetails;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +35,7 @@ import lombok.AllArgsConstructor;
 public class TokenVerifierFilter extends OncePerRequestFilter{
  
     private final JwtConfig jwtConfig;
+    private final JwtUtil jwtUtil;
     private final SecretKey secretKey;
     private final UserDetailsService userDetailsService;
 
@@ -68,10 +70,7 @@ public class TokenVerifierFilter extends OncePerRequestFilter{
             //Da continuidade ao processo de autorização
             filterChain.doFilter(request, response);
         }catch(JwtException e){
-            //Exceção lançada ao receber um JWS inválido.
-            //Observação: Como se trata de uma aplicação com fins de demonstração, essa exceção não é tratada,
-            //logo a requisição que alcançar esse ponto receberá código 500 como resposta. Aconselho tratar essa exceção para retornar um código 401
-            throw new IllegalStateException("Token " + token + " cannot be trusted");
+            jwtUtil.sendErrorMessage(response, request, e);
         }
     }
     
