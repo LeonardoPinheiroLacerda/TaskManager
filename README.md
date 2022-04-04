@@ -17,7 +17,6 @@ Para executar a aplicação é muito simples, basta ter o Docker instalado e con
 O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no arquivo [aplication.properties](/api/src/main/resources/application.properties) no atributo spring.profiles.active, sendo eles:
 
 - test
-    - No início de sua execução cria dados para testes unitários e de integração;
     - Instância e se conecta a um banco de dados H2.
     - Se conecta ao container de servidor FTP responsável por armazenar os anexos.
 - dev
