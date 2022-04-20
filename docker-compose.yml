@@ -47,6 +47,18 @@ services:
     networks:
       - taskmanager
 
+  redis:
+    container_name: taskmanager_redis
+    hostname: redis.taskmanager.com
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass taskmanager
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/Docker/redis:/usr/local/etc/redis/redis.conf
+    networks:
+      - taskmanager
+
   api:
     container_name: taskmanager_api
     hostname: api.taskmanager.com
