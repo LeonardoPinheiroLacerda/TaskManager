@@ -1,0 +1,23 @@
+spring:
+
+    profiles:
+        active: dev
+
+    server:
+        port: 8080
+
+    jpa:
+        open-in-view: false
+    
+    mvc:
+        pathmatch:
+            #Configuração para correção de erros do swagger
+            matching-strategy: ant-path-matcher
+
+
+application:
+    jwt:
+        secret-key: sacdfsdfkjwyeiusd908djf87j0sadopij30948jsdfgnm3w087jdsfgslg08
+        token-prefix: Bearer 
+        authorization-header-name: Authorization
+        token-expiration-after-days: 14

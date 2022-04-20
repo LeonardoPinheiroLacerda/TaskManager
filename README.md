@@ -12,6 +12,50 @@ Para executar a aplicação é muito simples, basta ter o Docker instalado e con
 ./build.sh
 ~~~
 
+## Configuração de execução remota
+
+Esse projeto foi desenvolvido utilizando o Visual Code como principal ferramenta de desenvolvimento em meus projetos pessoais pois ele tem uma ótima compatibilidade com o WSL 2, pelo fato do Visual Code não ser um editor desenvolvido para desenvolvimento Java, o processo de configuração de recursos mais complexos é menos intuitivo. A melhor forma de fazer esse configuração é seguindo o seguinte passo a passo:
+
+- Primeiro instale as seguintes extensões em seu Visual Code para possibilitar o desenvolvimento Java na ferramenta: 
+    - vscjava.vscode-java-pack
+    - Pivotal.vscode-boot-dev-pack
+    - GabrielBB.vscode-lombok (Essa extensão é opcional, apenas necessário se utilizar o lombok para o desenvolvimento)
+
+-  Na raiz de seu workspace crie o diretório .vscode e dentro um arquivo chamado launch.json com o seguinte conteúdo.
+
+~~~json
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Local",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.leonardo.taskmanager.TaskmanagerApplication",
+            "projectName": "taskmanager",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }, 
+        {
+            "type": "java",
+            "name": "Remote",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "org.springframework.boot.devtools.RemoteSpringApplication",
+            "projectName": "taskmanager",
+            "args": "http://127.0.0.1:8080",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
+~~~
+
+#### Lembrando, você precisa alterar o atributo "projectName" em ambas configurações com valor da tag "artifactId" de seu arquivo pom.xml, e na configuração local, alterar o atributo "mainClass" passando como valor a classe de seu projeto que contém o método main. 
+
+Dessa forma você tera duas configurações de execução de seu back-end presentes na aba "Executar e Depurar". Uma sendo de forma convencional nesse caso chamada de "Local" e a outra de forma remota utilizando o Spring Remote, que nesse caso será chamada de "Remote".
+
 ## Perfis do Back-end
 
 O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no arquivo [aplication.properties](/api/src/main/resources/application.properties) no atributo spring.profiles.active, sendo eles:
