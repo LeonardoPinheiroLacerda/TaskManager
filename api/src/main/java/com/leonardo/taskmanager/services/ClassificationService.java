@@ -5,7 +5,12 @@ import com.leonardo.taskmanager.model.Classification;
 import com.leonardo.taskmanager.repositories.ClassificationRepository;
 import com.leonardo.taskmanager.services.utils.SafeRepositoryOperationsService;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+@CacheConfig(cacheNames = "classification")
 
 @Service
 public class ClassificationService {
@@ -21,7 +26,8 @@ public class ClassificationService {
         this.repository = classificationRepository;
         this.safeOpsService = safeOpsService;
     }
-
+    
+    @CacheEvict
     public ClassificationDTO save(ClassificationDTO dto){  
         Classification obj = new Classification(dto.getClassification());
         
@@ -32,6 +38,7 @@ public class ClassificationService {
         return savedObj;
     }
 
+    @CacheEvict(key = "#dto.getId()")
     public ClassificationDTO update(ClassificationDTO dto){
         Classification obj = safeOpsService.safeFindById(repository,dto.getId());
 
@@ -44,12 +51,14 @@ public class ClassificationService {
         return savedObj;
     }
 
+    @CacheEvict(key = "#id")
     public void delete(Integer id){
         Classification obj = safeOpsService.safeFindById(repository, id);
 
         repository.delete(obj);        
     }
 
+    @Cacheable(key = "#id")
     public ClassificationDTO findById(Integer id){
         Classification obj = safeOpsService.safeFindById(repository, id);
 

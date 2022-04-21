@@ -31,6 +31,6 @@ spring:
 application:
     jwt:
         secret-key: sacdfsdfkjwyeiusd908djf87j0sadopij30948jsdfgnm3w087jdsfgslg08
-        token-prefix: Bearer 
+        token-prefix: 'Bearer '
         authorization-header-name: Authorization
         token-expiration-after-days: 14
