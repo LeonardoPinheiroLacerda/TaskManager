@@ -51,7 +51,7 @@ services:
     container_name: taskmanager_redis
     hostname: redis.taskmanager.com
     image: redis:alpine
-    command: redis-server /usr/local/etc/redis/redis.conf --requirepass taskmanager
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass taskmanager #A senha será taskmanager
     ports:
       - "6379:6379"
     volumes:

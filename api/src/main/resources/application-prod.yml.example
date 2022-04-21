@@ -12,6 +12,11 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
         hibernate:
             ddl-auto: none
+    
+    redis:
+        host: redis.taskmanager.com
+        port: 6379
+        password: taskmanager
 
 application:
     jwt:

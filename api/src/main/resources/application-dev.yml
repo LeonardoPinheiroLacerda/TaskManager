@@ -16,3 +16,8 @@ spring:
     devtools:
         remote:
             secret: 123
+
+    redis:
+        host: redis.taskmanager.com
+        port: 6379
+        password: taskmanager

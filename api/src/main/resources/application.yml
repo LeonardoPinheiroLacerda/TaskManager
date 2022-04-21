@@ -1,5 +1,18 @@
 spring:
 
+    cache:
+        type: redis
+
+    redis:
+        host: redis.taskmanager.com
+        port: 6379
+        password: taskmanager
+
+    data:
+        redis:
+            repositories:
+                enabled: false
+
     profiles:
         active: dev
 
