@@ -1,10 +1,10 @@
 package com.leonardo.taskmanager.security.jwt.filters;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.leonardo.taskmanager.model.User;
+import com.leonardo.taskmanager.model.enums.Role;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
 import com.leonardo.taskmanager.security.jwt.JwtUtil;
 import com.leonardo.taskmanager.security.users.AppUserDetails;
@@ -90,15 +91,15 @@ public class TokenVerifierFilter extends OncePerRequestFilter{
 
         //Recebe as autoridades do usuário e os salva em uma lista
         @SuppressWarnings("unchecked")
-        List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
+        List<Map<String, String>> roles = (List<Map<String, String>>) body.get("authorities");
 
-        //Converte a lista de autoridades para um conjunto de SimpleGrantedAuthorities.
-        Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities
-            .stream()
-            .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-            .collect(Collectors.toSet());
+        //Converte a lista de roles para um conjunto de SimpleGrantedAuthorities contendo os roles e authorities do token.       
+        Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
+        roles.forEach(role -> {
+            String roleName = role.get("authority").replace("ROLE_", "");
+            simpleGrantedAuthorities.addAll(Role.valueOf(roleName).getAuthorities());
+        });
 
-        
         //Com base no username presente no JWS, o sistema busca o usuário correspondente no banco de dados.
         AppUserDetails userDetails = (AppUserDetails) userDetailsService.loadUserByUsername(username);
         User user = userDetails.getUser();

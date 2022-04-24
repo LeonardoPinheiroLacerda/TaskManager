@@ -59,16 +59,16 @@ services:
     networks:
       - taskmanager
 
-  api:
-    container_name: taskmanager_api
-    hostname: api.taskmanager.com
-    image: taskmanager_api:0.0.1-SNAPSHOT
-    ports:
-      - "8080:8080"
-    networks:
-      - taskmanager
-    depends_on:
-      - db
+  # api:
+  #   container_name: taskmanager_api
+  #   hostname: api.taskmanager.com
+  #   image: taskmanager_api:0.0.1-SNAPSHOT
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - taskmanager
+  #   depends_on:
+  #     - db
 
 networks: 
   taskmanager:
