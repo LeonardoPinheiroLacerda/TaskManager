@@ -14,10 +14,7 @@ spring:
                 enabled: false
 
     profiles:
-        active: dev
-
-    server:
-        port: 8080
+        active: local
 
     jpa:
         open-in-view: false
@@ -34,3 +31,6 @@ application:
         token-prefix: 'Bearer '
         authorization-header-name: Authorization
         token-expiration-after-days: 14
+
+server:
+    port: 8080

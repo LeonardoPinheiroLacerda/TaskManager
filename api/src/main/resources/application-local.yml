@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/taskmanager
+        username: taskmanager
+        password: task@manager2022
+           
+    jpa:
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: false
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+                
+    devtools:
+        remote:
+            secret: 123
+
+    redis:
+        host: localhost
+        port: 6379
+        password: taskmanager

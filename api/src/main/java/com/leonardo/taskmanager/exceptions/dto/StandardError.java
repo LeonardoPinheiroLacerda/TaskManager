@@ -13,7 +13,7 @@ public class StandardError implements Serializable{
     
     private Long timestamp;
 	private Integer status;
-	private String error;
+	private Object error;
 	private String message;
 	private String path;
 
