@@ -1,6 +1,6 @@
 # Task Manager
 
-Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar minhas habilidades e adquirir mais experiência com Spring boot, Angular e Docker.
+Um projeto full stack 100% desenvolvido por mim, com o objetivo de demonstrar minhas habilidades e adquirir mais experiência com Spring boot, Angular, Docker e outras tecnologias que serão citadas a baixo.
 
 Conforme o projeto progride irei listar as novas features abaixo.
 
@@ -11,6 +11,18 @@ Para executar a aplicação é muito simples, basta ter o Docker instalado e con
 ~~~console
 ./build.sh
 ~~~
+
+## Documentação com swagger
+
+Todos os end-points da aplicação estão documentão sendo sendo documentados pelo swagger no caminho ``/swagger-ui/index.html``.
+
+O swagger é uma ferramenta muito utilizada para documentar APIs, pois: 
+- Gera automaticamente a documentação da aplicação;
+- Contém diversas configurações para adequar a documentação à sua aplicação, por exemplo: 
+    - Adicionar descrições em métodos, parâmetros e models;
+    - Configurações para métodos que esperam algum tipo de autenticação;
+    - Adicionar informações de contato e mais.
+- Segue o padrão **OpenAPI** o que facilita a integração da documentação gerada com softwares client http como Postman ou Insomnia.
 
 ## Configuração de execução remota
 
@@ -67,15 +79,11 @@ O Back-end desenvolvido em Spring Boot contém 3 perfis, podendo ser alterado no
     - Configurado para desenvolvimento utilizando o Spring Remote, onde um container do back-end é instânciado, e conforme os arquivos do projeto são alterados, é realizado o upload para o container assim atualizando seu comportamento;
     - Se conecta ao banco de dados PostgreSQL instânciado pelo docker que é utilizado apenas para desenvolvimento;
     - Se conecta ao container de servidor FTP responsável por armazenar os anexos.
+- local
+    - Mesma finalidade do perfil dev, mas configurado para executar a api em ambiente de desenvolvimento na máquina local sem Docker.
 - prod
     - Se conecta ao banco de dados PostgreSQL de produção;
     - Se conecta ao servidor FTP de produção.
-
-## Documentação do Back-end
-
-O Back-end está sendo documentado utilizando o Swagger que por sua vez segue as especificações do OpenAPI, dessa forma, a documentação é padronizada de logo é familiar a qualquer desenvolvedor que já utilizou uma documentação que segue as mesmas especificações assim facilitando a curva de aprendizado.
-
-Além disso, por seguir as especificações do OpenAPI é de extrema facilidade exportar a documentação para ferramentas como o Postman ou Insomnia.
 
 ## Segurança
 
@@ -103,6 +111,9 @@ O sistema utiliza o PostgreSQL como base de dados. Segue abaixo o diagrama da ba
 
 O diagrama pode ser vizualizado com mais detalhes [aqui](https://dbdiagram.io/d/62362e4ebed6183873c38a3f).
 
+## Armazenamento de cache - Redis
 
+Redis é um acrônimo de REmote DIctionary Server (servidor de dicionário remoto), onde ele é um banco de dados noSQL que armazena os dados com uma extrutura de chave-valor, pode ser utilizado para armazenamento de cache, gerenciamento de sessões e PUB/SUB.
 
+Nessa aplicação ele está sendo utilizado para armazenar o cache da aplicação, com a finalidade de reduzir o número de consultas ao banco de dados, assim aprimorando a performance da aplicação.
 
