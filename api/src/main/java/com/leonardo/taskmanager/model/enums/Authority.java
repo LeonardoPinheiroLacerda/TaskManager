@@ -8,8 +8,10 @@ import lombok.Getter;
 
 public enum Authority {
     
-    READ ("any:read"),
-    WRITE ("any:write");
+    ANY_READ ("any:read"),
+    ANY_WRITE ("any:write"),
+    CLASSIFICATION_READ("classification:read"),
+    CLASSIFICATION_WRITE("classification:write");
 
     private final String authority;
 

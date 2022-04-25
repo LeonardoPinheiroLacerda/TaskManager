@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.crypto.SecretKey;
 
+import com.leonardo.taskmanager.model.enums.Authority;
 import com.leonardo.taskmanager.repositories.UserRepository;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
 import com.leonardo.taskmanager.security.jwt.JwtUtil;
@@ -13,6 +14,7 @@ import com.leonardo.taskmanager.security.users.AppUserDetailsService;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -77,6 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         .authorizeRequests()
         
         .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
+
+        .antMatchers(HttpMethod.GET, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_READ.getAuthority(), Authority.CLASSIFICATION_READ.getAuthority())
+        .antMatchers(HttpMethod.POST, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
+        .antMatchers(HttpMethod.PUT, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
+        .antMatchers(HttpMethod.DELETE, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
+
         .anyRequest().authenticated();
 
 	}

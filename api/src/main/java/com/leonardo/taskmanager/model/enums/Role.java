@@ -17,13 +17,16 @@ public enum Role {
     
     COMMON (
 		Arrays.asList(
-			Authority.READ
+			Authority.ANY_READ,
+			Authority.CLASSIFICATION_READ
 		)
 	),
     ADMIN (
 		Arrays.asList(
-			Authority.READ, 
-			Authority.WRITE
+			Authority.ANY_READ, 
+			Authority.ANY_WRITE,
+			Authority.CLASSIFICATION_READ,
+			Authority.CLASSIFICATION_WRITE
 		)
 	);
 
