@@ -4,10 +4,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.classmate.TypeResolver;
+import com.leonardo.taskmanager.exceptions.dto.StandardError;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
+import lombok.AllArgsConstructor;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
@@ -21,9 +25,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+@AllArgsConstructor
+
 @Configuration
 public class SpringFoxConfig {
     
+    private final TypeResolver typeResolver;
+
     @Bean
     public Docket swaggerConfig() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -31,6 +39,8 @@ public class SpringFoxConfig {
             .apis(RequestHandlerSelectors.basePackage("com.leonardo.taskmanager"))
             .paths(PathSelectors.ant("/api/v1/**"))
             .build()
+
+            .additionalModels(typeResolver.resolve(StandardError.class))
 
             .apiInfo(apiDetails())
             .securityContexts(Arrays.asList(securityContext()))

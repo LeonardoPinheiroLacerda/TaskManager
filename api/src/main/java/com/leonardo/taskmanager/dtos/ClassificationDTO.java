@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-@ApiModel(description = "Descreve uma classificação.")
+@ApiModel(value="Classification", description = "Descreve uma classificação.")
 public class ClassificationDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
