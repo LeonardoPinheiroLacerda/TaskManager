@@ -1,5 +1,8 @@
 package com.leonardo.taskmanager.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.leonardo.taskmanager.dtos.ClassificationDTO;
 import com.leonardo.taskmanager.model.Classification;
 import com.leonardo.taskmanager.repositories.ClassificationRepository;
@@ -27,7 +30,7 @@ public class ClassificationService {
         this.safeOpsService = safeOpsService;
     }
     
-    @CacheEvict
+    @CacheEvict(allEntries = true)
     public ClassificationDTO save(ClassificationDTO dto){  
         Classification obj = new Classification(dto.getClassification());
         
@@ -38,7 +41,7 @@ public class ClassificationService {
         return savedObj;
     }
 
-    @CacheEvict(key = "#dto.getId()")
+    @CacheEvict(allEntries = true)
     public ClassificationDTO update(ClassificationDTO dto){
         Classification obj = safeOpsService.safeFindById(repository,dto.getId());
 
@@ -51,7 +54,7 @@ public class ClassificationService {
         return savedObj;
     }
 
-    @CacheEvict(key = "#id")
+    @CacheEvict(allEntries = true)
     public void delete(Integer id){
         Classification obj = safeOpsService.safeFindById(repository, id);
 
@@ -65,6 +68,18 @@ public class ClassificationService {
         ClassificationDTO dto = new ClassificationDTO(obj.getId(), obj.getClassification());
 
         return dto;
+    }
+
+    @Cacheable
+    public List<ClassificationDTO> findAll(){
+        
+        List<ClassificationDTO> dtos = repository.findAll()
+            .stream()
+            .map((classification) -> new ClassificationDTO(classification.getId(), classification.getClassification()))
+            .collect(Collectors.toList());
+
+        return dtos;
+        
     }
 
 }

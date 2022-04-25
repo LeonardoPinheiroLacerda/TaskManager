@@ -1,5 +1,7 @@
 package com.leonardo.taskmanager.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.leonardo.taskmanager.dtos.ClassificationDTO;
@@ -89,6 +91,16 @@ public class ClassificationResource {
         dto.setId(id);
         ClassificationDTO obj = service.update(dto);
         return ResponseEntity.ok(obj);
+    }
+
+
+    @ApiOperation(
+        value = "Recebe todos os registros de classificações"
+    )
+    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping
+    public ResponseEntity<List<ClassificationDTO>> findAll(){
+        return ResponseEntity.ok(service.findAll());
     }
 
 }
