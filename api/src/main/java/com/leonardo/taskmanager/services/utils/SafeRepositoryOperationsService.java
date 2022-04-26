@@ -25,7 +25,7 @@ public class SafeRepositoryOperationsService<T extends Object, TID> {
         try{
             saved = repository.save(obj);
         }catch(DataIntegrityViolationException e){
-            throw new DataPersistenceException("O Objeto não pode ser persistido pois não pode satisfazer todas as constraints.");
+            throw new DataPersistenceException("O Objeto não pode ser persistido pois não pode satisfazer todas as constraints. (" + e.getMessage() + ")");
         }
 
         return saved;
