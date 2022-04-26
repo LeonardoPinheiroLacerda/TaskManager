@@ -39,7 +39,7 @@ public class ClassificationResource {
         notes = "Apenas usuários com permissão de ADMIN tem acesso à este endpoint.")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
-    public ResponseEntity<Void> insertClassification(
+    public ResponseEntity<Void> save(
         @ApiParam(value = "Classificação que será persistida no banco. O Id é gerado automaticamente.", required = true) 
         @RequestBody 
         @Valid ClassificationDTO dto

@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.leonardo.taskmanager.dtos.ClientDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,5 +43,10 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private Set<Project> projects;
+
+
+    public ClientDTO toDTO(){
+        return new ClientDTO(this.id, this.client);
+    }
 
 }

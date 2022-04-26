@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-@ApiModel("Classification")
-public class ClassificationDTO implements Serializable {
+@ApiModel("Client")
+public class ClientDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    
     @ApiModelProperty(hidden = true)
     private Integer id;
 
-    @NotBlank(message = "Campo obrigatório")
-    private String classification;
-    
+    @NotBlank
+    private String client;
+
 }

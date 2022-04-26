@@ -13,22 +13,16 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-@CacheConfig(cacheNames = "classification")
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
+
+@CacheConfig(cacheNames = "classification")
 @Service
 public class ClassificationService {
     
     private final ClassificationRepository repository;
     private final SafeRepositoryOperationsService<Classification, Integer> safeOpsService;
-
-
-    public ClassificationService(
-        ClassificationRepository classificationRepository, 
-        SafeRepositoryOperationsService<Classification, Integer> safeOpsService
-    ){
-        this.repository = classificationRepository;
-        this.safeOpsService = safeOpsService;
-    }
     
     @CacheEvict(allEntries = true)
     public ClassificationDTO save(ClassificationDTO dto){  
