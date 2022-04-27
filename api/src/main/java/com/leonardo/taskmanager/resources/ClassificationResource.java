@@ -42,7 +42,8 @@ public class ClassificationResource {
     public ResponseEntity<Void> save(
         @ApiParam(value = "Classificação que será persistida no banco. O Id é gerado automaticamente.", required = true) 
         @RequestBody 
-        @Valid ClassificationDTO dto
+        @Valid 
+        ClassificationDTO dto
         ) {
         service.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -55,7 +56,8 @@ public class ClassificationResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClassificationDTO> findById(
         @ApiParam(value = "Id da classificação que deseja receber.", required = true) 
-        @PathVariable Integer id 
+        @PathVariable 
+        Integer id 
         ) {
         ClassificationDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
@@ -69,7 +71,8 @@ public class ClassificationResource {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(
         @ApiParam(value = "Id da classificação que deve ser deletada.") 
-        @PathVariable Integer id 
+        @PathVariable 
+        Integer id 
         ) {
         service.delete(id);
         return ResponseEntity.noContent().build();
@@ -84,9 +87,11 @@ public class ClassificationResource {
     public ResponseEntity<ClassificationDTO> update(
         @ApiParam(value = "Dados que serão atualizados no novo registro.") 
         @RequestBody 
-        @Valid ClassificationDTO dto, 
+        @Valid 
+        ClassificationDTO dto, 
         @ApiParam(value = "Id da classificação que será atualizada.") 
-        @PathVariable Integer id
+        @PathVariable 
+        Integer id
         ) {
         dto.setId(id);
         ClassificationDTO obj = service.update(dto);

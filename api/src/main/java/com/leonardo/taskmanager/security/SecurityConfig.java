@@ -1,10 +1,10 @@
 package com.leonardo.taskmanager.security;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import javax.crypto.SecretKey;
 
-import com.leonardo.taskmanager.model.enums.Authority;
 import com.leonardo.taskmanager.repositories.UserRepository;
 import com.leonardo.taskmanager.security.configs.JwtConfig;
 import com.leonardo.taskmanager.security.jwt.JwtUtil;
@@ -18,11 +18,15 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+
+@Slf4j
 
 @Configuration
 @EnableWebSecurity
@@ -34,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private final JwtUtil jwtUtil;
     private final SecretKey secretKey;
     private final UserRepository userRepository;
+
+
 
     private static final String[] SWAGGER_AUTH_WHITELIST = {
         // -- Swagger UI v2
@@ -48,6 +54,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         "/v3/api-docs/**",
         "/swagger-ui/**"
     };
+
+    private static final String CLASSIFICATION_ROUTE = "/api/v1/classifications/**";
+    private static final String CLASSIFICATION_AUTHORITY_PREFIX = "classification";
+
+    private static final String CLIENT_ROUTE = "/api/v1/clients/**";
+    private static final String CLIENT_AUTHORITY_PREFIX = "classification";
+
+    private static final Map<String, String> ANT_MATCHERS = Map.ofEntries(
+        Map.entry(CLASSIFICATION_ROUTE, CLASSIFICATION_AUTHORITY_PREFIX),
+        Map.entry(CLIENT_ROUTE, CLIENT_AUTHORITY_PREFIX)
+    );
+    
 
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -71,21 +89,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/.~~spring-boot!~/**").permitAll();
 		}
 
+        //Desative o CSRF e aplica os filtros de segurança
         http.csrf().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
         
         .addFilter(passwordUsernameAuthenticationFilter())
-        .addFilterAfter(new TokenVerifierFilter(jwtConfig, jwtUtil, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class)
+        .addFilterAfter(new TokenVerifierFilter(jwtConfig, jwtUtil, secretKey, userDetailsService()), AppUsernamePasswordAuthenticationFilter.class);
 
-        .authorizeRequests()
-        
-        .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
+        //Autoriza as rotas utilizadas pelo swagger
+        http.authorizeRequests()
+        .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll();
+   
+        //Aplica as autorizações individuais de cada rota
+        ANT_MATCHERS.forEach((route, authorityPrefix) -> {
+            try{
+                http.authorizeRequests()
+                
+                .antMatchers(HttpMethod.GET, route).hasAuthority(authorityPrefix + ":read")
+                .antMatchers(HttpMethod.POST, route).hasAuthority(authorityPrefix + ":write")
+                .antMatchers(HttpMethod.PUT, route).hasAuthority(authorityPrefix + ":write")
+                .antMatchers(HttpMethod.DELETE, route).hasAuthority(authorityPrefix + ":write");
 
-        .antMatchers(HttpMethod.GET, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_READ.getAuthority(), Authority.CLASSIFICATION_READ.getAuthority())
-        .antMatchers(HttpMethod.POST, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
-        .antMatchers(HttpMethod.PUT, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
-        .antMatchers(HttpMethod.DELETE, "/api/v1/classifications/**").hasAnyAuthority(Authority.ANY_WRITE.getAuthority(), Authority.CLASSIFICATION_WRITE.getAuthority())
+                log.info("Authorities applied on the '" + route + "' path.");
 
-        .anyRequest().authenticated();
+            }catch(Exception e){
+                log.error("Failed on apply authorization rules on " + route);
+            }
+        });
+
+        //Filtra qualquer requisição que não foi aceita por nenhuma configuração acima
+        http.authorizeRequests().anyRequest().authenticated();
 
 	}
 

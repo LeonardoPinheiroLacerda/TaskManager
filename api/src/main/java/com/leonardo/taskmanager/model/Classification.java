@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.leonardo.taskmanager.dtos.ClassificationDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,5 +43,9 @@ public class Classification {
 
     @OneToMany(mappedBy = "classification")
     private Set<Task> tasks;
+
+    public ClassificationDTO toDTO(){
+        return new ClassificationDTO(this.id, this.classification);
+    }
 
 }
