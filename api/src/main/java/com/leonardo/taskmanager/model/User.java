@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.leonardo.taskmanager.dtos.UserDTO;
 import com.leonardo.taskmanager.model.enums.Role;
 
 import lombok.AllArgsConstructor;
@@ -65,7 +66,6 @@ public class User {
     private String username;
 
     @Column(nullable = false, length = 255)
-    @NonNull
     private String password;
 
     @OneToMany(mappedBy = "leader")
@@ -87,5 +87,16 @@ public class User {
     @CollectionTable(name = "Roles")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+
+    public UserDTO toDTO() {
+        return new UserDTO(
+            id, 
+            name, 
+            lastName, 
+            email, 
+            telephoneNumber, 
+            username
+        );
+    }
 
 }

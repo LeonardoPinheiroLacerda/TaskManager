@@ -35,9 +35,9 @@ public class UserRepositoryTest {
             "Lacerda", 
             "leon.lacerda2015@gmail.com", 
             "11953248804", 
-            username, 
-            passwordEncoder.encode("senha123")
+            username
         );
+        user.setPassword(passwordEncoder.encode("senha123"));
         underTest.save(user);
         
         //when
@@ -61,9 +61,10 @@ public class UserRepositoryTest {
             "Lacerda", 
             "leon.lacerda2015@gmail.com", 
             "11953248804", 
-            username, 
-            passwordEncoder.encode("senha123")
+            username
         );
+        user.setPassword(passwordEncoder.encode("senha123"));
+
         underTest.save(user);
         
         //when

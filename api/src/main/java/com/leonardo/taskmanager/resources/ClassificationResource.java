@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 
 @Api(value = "/api/v1/classifications", tags = "Classificações", description = "Gerência classificações")
 @RestController
@@ -29,10 +32,6 @@ import io.swagger.annotations.ApiParam;
 public class ClassificationResource {
     
     private final ClassificationService service;
-
-    public ClassificationResource(ClassificationService service){
-        this.service = service;
-    }
 
     @ApiOperation(
         value = "Insere uma nova classificação no sistema.",
