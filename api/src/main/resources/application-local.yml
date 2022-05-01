@@ -14,8 +14,7 @@ spring:
             ddl-auto: update
                 
     devtools:
-        remote:
-            secret: 123
+        add-properties: false
 
     redis:
         host: localhost
