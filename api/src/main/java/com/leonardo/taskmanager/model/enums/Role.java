@@ -19,7 +19,8 @@ public enum Role {
 		Arrays.asList(
 			Authority.ANY_READ,
 			Authority.CLASSIFICATION_READ,
-			Authority.CLIENT_READ
+			Authority.CLIENT_READ,
+			Authority.USER_READ
 		)
 	),
     ADMIN (
@@ -29,7 +30,9 @@ public enum Role {
 			Authority.CLASSIFICATION_READ,
 			Authority.CLASSIFICATION_WRITE,
 			Authority.CLIENT_READ,
-			Authority.CLIENT_WRITE
+			Authority.CLIENT_WRITE,
+			Authority.USER_READ,
+			Authority.USER_WRITE
 		)
 	);
 

@@ -61,9 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private static final String CLIENT_ROUTE = "/api/v1/clients/**";
     private static final String CLIENT_AUTHORITY_PREFIX = "classification";
 
+    private static final String USER_ROUTE = "/api/v1/users/**";
+    private static final String USER_AUTHORITY_PREFIX = "user";
+
     private static final Map<String, String> ANT_MATCHERS = Map.ofEntries(
         Map.entry(CLASSIFICATION_ROUTE, CLASSIFICATION_AUTHORITY_PREFIX),
-        Map.entry(CLIENT_ROUTE, CLIENT_AUTHORITY_PREFIX)
+        Map.entry(CLIENT_ROUTE, CLIENT_AUTHORITY_PREFIX),
+        Map.entry(USER_ROUTE, USER_AUTHORITY_PREFIX)
     );
     
 
@@ -99,7 +103,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         //Autoriza as rotas utilizadas pelo swagger
         http.authorizeRequests()
-        .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll();
+        .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
+
+        //Usuários deslogados conseguem criar novos usuários
+        .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+
+        //Um usuário logado consegue atualizar seus proprios dados
+        .antMatchers(HttpMethod.PUT, "/api/v1/users").authenticated()
+        .antMatchers(HttpMethod.PUT, "/api/v1/users/password").authenticated();
+
    
         //Aplica as autorizações individuais de cada rota
         ANT_MATCHERS.forEach((route, authorityPrefix) -> {

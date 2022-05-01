@@ -9,6 +9,7 @@ import com.leonardo.taskmanager.dtos.PasswordDTO;
 import com.leonardo.taskmanager.dtos.RoleDTO;
 import com.leonardo.taskmanager.dtos.UserDTO;
 import com.leonardo.taskmanager.dtos.UserWithPasswordDTO;
+import com.leonardo.taskmanager.model.User;
 import com.leonardo.taskmanager.services.SecurityService;
 import com.leonardo.taskmanager.services.UserService;
 
@@ -69,6 +70,13 @@ public class UserResource {
         return ResponseEntity.ok(service.update(dto));
     }
 
+    @PutMapping
+    public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO dto){
+        User user = securityService.getAuthenticatedUser().get();
+        dto.setId(user.getId());
+        return ResponseEntity.ok(service.update(dto));
+    }
+
     @PutMapping("/roles/{id}")
     public ResponseEntity<Void> updateRoles(@RequestBody Set<RoleDTO> roles, @PathVariable Integer id){
         service.updateRoles(id, roles);
@@ -78,6 +86,13 @@ public class UserResource {
     @PutMapping("/password/{id}")
     public ResponseEntity<Void> updatePassword(@RequestBody @Valid PasswordDTO password, @PathVariable Integer id){
         service.updatePassword(id, password);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity<Void> updatePassword(@RequestBody @Valid PasswordDTO password){
+        User user = securityService.getAuthenticatedUser().get();
+        service.updatePassword(user.getId(), password);
         return ResponseEntity.ok().build();
     }
 

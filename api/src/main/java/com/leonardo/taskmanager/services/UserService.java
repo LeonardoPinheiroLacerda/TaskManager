@@ -68,6 +68,12 @@ public class UserService {
     }
 
     @CacheEvict(allEntries = true)
+    public void updatePassword(User user, PasswordDTO password){
+        user.setPassword(passwordEncoder.encode(password.getPassword()));
+        safeOpsService.safeSave(repository, user);
+    }
+
+    @CacheEvict(allEntries = true)
     public void updateRoles(Integer id, Set<RoleDTO> roles){
         User obj = safeOpsService.safeFindById(repository, id);
 
