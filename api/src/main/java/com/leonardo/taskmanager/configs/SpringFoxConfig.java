@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.classmate.TypeResolver;
 import com.leonardo.taskmanager.exceptions.dto.StandardError;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,7 +15,6 @@ import org.springframework.http.HttpMethod;
 import lombok.AllArgsConstructor;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
@@ -32,6 +32,28 @@ public class SpringFoxConfig {
     
     private final TypeResolver typeResolver;
 
+    @Qualifier("success")
+    private final Response success;
+
+    @Qualifier("created")
+    private final Response created;
+
+    @Qualifier("noContent")
+    private final Response noContent;
+
+    @Qualifier("badRequest")
+    private final Response badRequest;
+
+    @Qualifier("unauthorized")
+    private final Response unauthorized;
+
+    @Qualifier("forbidden")
+    private final Response forbidden;
+
+    @Qualifier("notFound")
+    private final Response notFound;
+
+
     @Bean
     public Docket swaggerConfig() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -47,10 +69,10 @@ public class SpringFoxConfig {
             .securitySchemes(Arrays.asList(apiKey()))
 
             .useDefaultResponseMessages(false)
-            .globalResponses(HttpMethod.GET, Arrays.asList(success(), badRequest(), unauthorized(), forbidden(), notFound()))
-            .globalResponses(HttpMethod.POST, Arrays.asList(created(), badRequest(), unauthorized(), forbidden()))
-            .globalResponses(HttpMethod.PUT, Arrays.asList(success(), badRequest(), unauthorized(), forbidden(), notFound()))
-            .globalResponses(HttpMethod.DELETE, Arrays.asList(noContent(), badRequest(), unauthorized(), forbidden(), notFound()));
+            .globalResponses(HttpMethod.GET, Arrays.asList(success, badRequest, unauthorized, forbidden, notFound))
+            .globalResponses(HttpMethod.POST, Arrays.asList(created, badRequest, unauthorized, forbidden))
+            .globalResponses(HttpMethod.PUT, Arrays.asList(success, badRequest, unauthorized, forbidden, notFound))
+            .globalResponses(HttpMethod.DELETE, Arrays.asList(noContent, badRequest, unauthorized, forbidden, notFound));
     }
 
     
@@ -83,54 +105,5 @@ public class SpringFoxConfig {
             /*VendorExtensions*/    Collections.emptyList());
     }
 
-    //Respostas Padrões
-    public Response success(){
-        return new ResponseBuilder()
-            .code("200")
-            .description("Success")
-            .build();
-    }
-
-    public Response created(){
-        return new ResponseBuilder()
-            .code("201")
-            .description("Created")
-            .build();
-    }
-
-    public Response noContent(){
-        return new ResponseBuilder()
-            .code("204")
-            .description("No Content")
-            .build();
-    }
-
-    public Response badRequest(){
-        return new ResponseBuilder()
-            .code("400")
-            .description("Bad Request")
-            .build();
-    }
-
-    public Response unauthorized(){
-        return new ResponseBuilder()
-            .code("401")
-            .description("Unauthorized")
-            .build();
-    }
-
-    public Response forbidden(){
-        return new ResponseBuilder()
-            .code("403")
-            .description("Forbidden")
-            .build();
-    }
-
-    public Response notFound(){
-        return new ResponseBuilder()
-            .code("404")
-            .description("Not Found")
-            .build();
-    }
 
 }
