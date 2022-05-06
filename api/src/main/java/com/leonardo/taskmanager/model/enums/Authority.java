@@ -18,7 +18,10 @@ public enum Authority {
     CLIENT_WRITE("client:write"),
     
     USER_READ("user:read"),
-    USER_WRITE("user:write");
+    USER_WRITE("user:write"),
+
+    TEAM_READ("team:read"),
+    TEAM_WRITE("team:write");
 
     private final String authority;
 

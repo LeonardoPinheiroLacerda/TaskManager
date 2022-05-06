@@ -20,7 +20,8 @@ public enum Role {
 			Authority.ANY_READ,
 			Authority.CLASSIFICATION_READ,
 			Authority.CLIENT_READ,
-			Authority.USER_READ
+			Authority.USER_READ,
+			Authority.TEAM_READ
 		)
 	),
     ADMIN (
@@ -32,7 +33,9 @@ public enum Role {
 			Authority.CLIENT_READ,
 			Authority.CLIENT_WRITE,
 			Authority.USER_READ,
-			Authority.USER_WRITE
+			Authority.USER_WRITE,
+			Authority.TEAM_READ,
+			Authority.TEAM_WRITE
 		)
 	);
 

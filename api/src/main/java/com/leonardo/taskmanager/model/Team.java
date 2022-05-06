@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.leonardo.taskmanager.dtos.TeamDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,12 +41,11 @@ public class Team {
     @SequenceGenerator(name = "teams_id_generator", sequenceName = "teams_id_seq", allocationSize = 1)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     @NonNull
     private String name;
 
     @ManyToOne
-    @NonNull
     private User leader;
 
     @OneToMany(mappedBy = "team")
@@ -57,5 +58,9 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> users;
+
+    public TeamDTO toDTO(){
+        return new TeamDTO(this.id, this.leader.getId(), this.name);
+    }
 
 }

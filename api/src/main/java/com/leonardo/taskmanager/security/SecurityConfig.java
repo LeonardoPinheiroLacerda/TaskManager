@@ -64,10 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private static final String USER_ROUTE = "/api/v1/users/**";
     private static final String USER_AUTHORITY_PREFIX = "user";
 
+    private static final String TEAM_ROUTE = "/api/v1/teams/**";
+    private static final String TEAM_AUTHORITY_PREFIX = "team";
+
     private static final Map<String, String> ANT_MATCHERS = Map.ofEntries(
         Map.entry(CLASSIFICATION_ROUTE, CLASSIFICATION_AUTHORITY_PREFIX),
         Map.entry(CLIENT_ROUTE, CLIENT_AUTHORITY_PREFIX),
-        Map.entry(USER_ROUTE, USER_AUTHORITY_PREFIX)
+        Map.entry(USER_ROUTE, USER_AUTHORITY_PREFIX),
+        Map.entry(TEAM_ROUTE, TEAM_AUTHORITY_PREFIX)
     );
     
 
